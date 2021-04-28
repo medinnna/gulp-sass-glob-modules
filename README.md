@@ -40,14 +40,6 @@ npm install --save-dev gulp-sass-glob-use-forward
 // @use "some/path/file2.scss" as *;
 // ...
 
-@use "some/path/*" as test;
-
-// becomes
-// @use "some/path/file1.scss" as test;
-// @use "some/path/file2.scss" as test;
-// ...
-
-
 ```
 
 #### in your gulpfile
