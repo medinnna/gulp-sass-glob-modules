@@ -57,8 +57,6 @@ module.exports = function() {
                 }
             });
 
-            console.log(imports);
-
             var replaceString = imports.join('\n');
             contents = contents.replace(importRule, replaceString);
             file.contents = new Buffer(contents);
