@@ -1,14 +1,14 @@
 {
-  "name": "gulp-sass-glob-import",
+  "name": "gulp-sass-glob-use-forward",
   "version": "0.1.0",
-  "description": "import directories in your SCSS",
+  "description": "import directories in your SCSS with @use and @forward",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:bleuarg/gulp-sass-glob-import.git"
+    "url": "git@github.com:jakerambo/gulp-sass-glob-use-forward.git"
   },
   "keywords": [
     "gulpplugin",
@@ -21,12 +21,12 @@
     "import",
     "sass"
   ],
-  "author": "Patrick Davies",
+  "author": "Jake Rambo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bleuarg/gulp-sass-glob-import/issues"
+    "url": "https://github.com/jakerambo/gulp-sass-glob-use-forward/issues"
   },
-  "homepage": "https://github.com/bleuarg/gulp-sass-glob-import",
+  "homepage": "https://github.com/jakerambo/gulp-sass-glob-use-forward",
   "dependencies": {
     "glob": "^4.5.3",
     "slash": "^1.0.0",
