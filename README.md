@@ -1,15 +1,15 @@
-gulp-sass-glob-import
+gulp-sass-glob-use-forward
 =====================
 
-gulp task to allow importing directories in your SCSS.
+gulp task to allow importing directories in your SCSS using @use and @forward.
 
-Different from [gulp-sass-bulk-import](https://github.com/mathisonian/gulp-sass-bulk-import) in that I needed the output to not include the absolute path. Also using `Globs` for more flexibility.
+Similar to [gulp-sass-glob-import](https://github.com/bleuarg/gulp-sass-glob-import) but supports @use and @forward instead.
 
 
 ## installation
 
 ```
-npm install --save-dev gulp-sass-glob-import
+npm install --save-dev gulp-sass-glob-use-forward
 ```
 
 
@@ -19,20 +19,41 @@ npm install --save-dev gulp-sass-glob-import
 #### in your .scss file
 
 ```scss
-
-@import "some/path/*";
+@forward "some/path/*";
 
 // becomes
-// @import "some/path/file1.scss";
-// @import "some/path/file2.scss";
+// @forward "some/path/file1.scss";
+// @forward "some/path/file2.scss";
 // ...
+
+@use "some/path/*";
+
+// becomes
+// @use "some/path/file1.scss";
+// @use "some/path/file2.scss";
+// ...
+
+@use "some/path/*" as *;
+
+// becomes
+// @use "some/path/file1.scss" as *;
+// @use "some/path/file2.scss" as *;
+// ...
+
+@use "some/path/*" as test;
+
+// becomes
+// @use "some/path/file1.scss" as test;
+// @use "some/path/file2.scss" as test;
+// ...
+
 
 ```
 
 #### in your gulpfile
 
 ```js
-var bulkSass = require('gulp-sass-glob-import');
+var bulkSass = require('gulp-sass-glob-use-forward');
 
 gulp.task('css', function() {
     return gulp
