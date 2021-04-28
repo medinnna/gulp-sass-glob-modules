@@ -14,7 +14,7 @@ module.exports = function() {
         var contents = file.contents.toString('utf-8');
 
         // regex to match an @import that contains glob pattern
-        var reg = /(@forward|@use)\s+["']([^"']+\*(\.scss)?)["'](| as \*)?/;
+        var reg = /(@forward|@use)\s+["']([^"']+\*(\.scss)?)["'](| as *(.+))?/;
         var result;
 
         while((result = reg.exec(contents)) !== null) {
@@ -23,10 +23,13 @@ module.exports = function() {
             var globPattern = result[2];
             var imports = [];
             let isAs = false;
+            let asRule = '*';
             let isForward = false;
 
-            if (importRule.indexOf('as *') !== -1) {
+            if (importRule.indexOf(' as ') !== -1) {
                 isAs = true;
+                asRule = importRule.split(' as ').pop();
+                asRule = asRule.replace(';','');
             }
 
             if (importRule.indexOf('@forward') !== -1) {
@@ -48,11 +51,13 @@ module.exports = function() {
                     const type = isForward ? '@forward' :'@use';
                     let importPath = `${type} "${slash(filename)}"`;
                     if (isAs) {
-                        importPath = `${importPath} as *`;
+                        importPath = `${importPath} as ${asRule}`;
                     }
                     imports.push(`${importPath};`);
                 }
             });
+
+            console.log(imports);
 
             var replaceString = imports.join('\n');
             contents = contents.replace(importRule, replaceString);
