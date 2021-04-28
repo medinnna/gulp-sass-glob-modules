@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Takes the incomming stream of files and outputs a new file containing a list of @imports rule in sass.
  */
@@ -13,14 +14,24 @@ module.exports = function() {
         var contents = file.contents.toString('utf-8');
 
         // regex to match an @import that contains glob pattern
-        var reg = /@import\s+["']([^"']+\*(\.scss)?)["'];?/;
+        var reg = /(@forward|@use)\s+["']([^"']+\*(\.scss)?)["'](| as \*)?/;
         var result;
 
         while((result = reg.exec(contents)) !== null) {
             var index = result.index;
             var importRule = result[0];
-            var globPattern = result[1];
+            var globPattern = result[2];
             var imports = [];
+            let isAs = false;
+            let isForward = false;
+
+            if (importRule.indexOf('as *') !== -1) {
+                isAs = true;
+            }
+
+            if (importRule.indexOf('@forward') !== -1) {
+                isForward = true;
+            }
 
             var files = glob.sync(path.join(file.base, globPattern), {
                 cwd: file.base
@@ -34,7 +45,12 @@ module.exports = function() {
                     var base = path.join(path.normalize(file.base), '/');
 
                     filename = filename.replace(base, '');
-                    imports.push('@import "' + slash(filename) + '";');
+                    const type = isForward ? '@forward' :'@use';
+                    let importPath = `${type} "${slash(filename)}"`;
+                    if (isAs) {
+                        importPath = `${importPath} as *`;
+                    }
+                    imports.push(`${importPath};`);
                 }
             });
 
