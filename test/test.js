@@ -6,12 +6,12 @@ var nodeSass = require('gulp-sass');
 
 'use strict';
 
-describe('gulp-sass-glob-import', function() {
+describe('gulp-sass-glob-use-forward', function() {
 
     it('should parse a single directory', function(done) {
         var expectedResult = [
-            '@import "import-folder/_f1.scss";',
-            '@import "import-folder/_f2.scss";'
+            '@forward "import-folder/_f1.scss";',
+            '@forward "import-folder/_f2.scss";'
         ].join('\n');
 
         vinyl
@@ -27,9 +27,9 @@ describe('gulp-sass-glob-import', function() {
 
     it('should parse a directory recursively', function(done) {
         var expectedResult = [
-            '@import "recursive-folder/_f1.scss";',
-            '@import "recursive-folder/_f2.scss";',
-            '@import "recursive-folder/nested-folder/_f3.scss";'
+            '@use "recursive-folder/_f1.scss" as *;',
+            '@use "recursive-folder/_f2.scss" as test;',
+            '@use "recursive-folder/nested-folder/_f3.scss";'
         ].join('\n');
 
         vinyl
@@ -45,11 +45,11 @@ describe('gulp-sass-glob-import', function() {
 
     it('should find multiple import declaration in the same file', function(done){
         var expectedResult = [
-            '@import "recursive-folder/_f1.scss";',
-            '@import "recursive-folder/_f2.scss";',
-            '@import "recursive-folder/nested-folder/_f3.scss";',
-            '@import "import-folder/_f1.scss";',
-            '@import "import-folder/_f2.scss";'
+            '@use "recursive-folder/_f1.scss";',
+            '@use "recursive-folder/_f2.scss";',
+            '@use "recursive-folder/nested-folder/_f3.scss";',
+            '@use "import-folder/_f1.scss";',
+            '@use "import-folder/_f2.scss";'
         ].join('\n');
 
         vinyl
