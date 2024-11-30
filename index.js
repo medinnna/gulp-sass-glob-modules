@@ -2,13 +2,13 @@
 /**
  * Takes the incomming stream of files and outputs a new file containing a list of @imports rule in sass.
  */
-var slash = require('slash');
-var path = require('path');
-var fs = require('fs');
-var through = require('through2');
-var glob = require('glob');
+import slash from 'slash';
+import path from 'path';
+import fs from 'fs';
+import through from 'through2';
+import { glob } from 'glob';
 
-module.exports = function () {
+export default function () {
   var transform = function (file, env, cb) {
     // find all instances matching
     var contents = file.contents.toString('utf-8');
