@@ -1,6 +1,6 @@
 {
   "name": "gulp-sass-glob-modules",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Import directories in your SASS/SCSS with @use and @forward",
   "main": "index.js",
   "type": "module",
