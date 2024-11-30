@@ -1,22 +1,17 @@
-gulp-sass-glob-use-forward
+gulp-sass-glob-modules
 =====================
 
-gulp task to allow importing directories in your SCSS using @use and @forward.
+Gulp task to allow importing directories in your SASS/SCSS using `@use` and `@forward`.
 
-Similar to [gulp-sass-glob-import](https://github.com/bleuarg/gulp-sass-glob-import) but supports @use and @forward instead.
-
-
-## installation
+## Installation
 
 ```
-npm install --save-dev gulp-sass-glob-use-forward
+npm install gulp-sass-glob-modules -D
 ```
 
+## Usage
 
-## usage
-
-
-#### in your .scss file
+#### In your sass/scss file:
 
 ```scss
 @forward "some/path/*";
@@ -42,20 +37,20 @@ npm install --save-dev gulp-sass-glob-use-forward
 
 ```
 
-#### in your gulpfile
+#### In your gulpfile:
 
 ```js
-var bulkSass = require('gulp-sass-glob-use-forward');
+import batchSass from 'gulp-sass-glob-modules';
 
 gulp.task('css', function() {
-    return gulp
-            .src(srcDir + 'stylesheets/app.scss')
-            .pipe(bulkSass())
-            .pipe(
-                sass({
-                    includePaths: ['src/stylesheets']
-                }))
-            .pipe( gulp.dest('./public/css/') );
+  return gulp
+    .src(srcDir + 'stylesheets/app.scss')
+    .pipe(batchSass())
+    .pipe(
+      sass({
+        includePaths: ['src/stylesheets']
+      }))
+    .pipe(gulp.dest('./public/css/'));
 });
 ```
 
